@@ -1,0 +1,8 @@
+/*
+!/src/
+!/test/
+!/sample/
+/src/tsconfig.json
+/test/tsconfig.json
+/sample/tsconfig.json
+/sample/*.md
