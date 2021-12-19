@@ -132,9 +132,7 @@ ${
   },
 });
 
-type ErrorMessage<MESSAGE> = MESSAGE extends string
-  ? [{ '!!ERROR!!': MESSAGE; xxx: never }]
-  : [never];
+type ErrorMessage<MESSAGE extends string> = [] & MESSAGE;
 
 type Equal<A, B> = (<T>(a: A) => T extends A ? 1 : 2) extends <T>(
   a: B,
