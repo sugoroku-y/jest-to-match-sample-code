@@ -75,14 +75,19 @@ expect.extend({
   at ${targetPath}:${lineno}`);
           continue;
         }
+        // 期待値のインデント
         const expectIndent = expect.match(/^[ \t]+/)?.[0] ?? '';
+        // 実効値のインデント
         const actualIndent = actual.match(/^[ \t]+/)?.[0] ?? '';
+        // 期待値がインデントされているかどうか(1行目の先頭に空白かタブがないか、空行を除くすべての行が先頭行と同じ空白文字で始まっている)
         const expectIndented =
           !expectIndent ||
           !new RegExp(`^(?!$|${expectIndent})`, 'm').test(expect);
+        // 実効値がインデントされているかどうか
         const actualIndented =
           !actualIndent ||
           !new RegExp(`^(?!$|${actualIndent})`, 'm').test(actual);
+        // 期待値を実効値のインデントに合わせる
         const adjustExpect =
           expectIndent !== actualIndent && expectIndented && actualIndented
             ? expect.replace(
