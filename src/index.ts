@@ -36,10 +36,11 @@ expect.extend({
     const target = readFileSync(targetPath, 'utf8');
     // ソースファイルのパスと内容のキャッシュ
     const cache: Partial<Record<string, string>> = {};
+    PATTERN_IN_MD.lastIndex = 0;
+    let match;
     // 文書の中からサンプルコードを検索
-    for (const { index, 1: key, 2: pathname, 3: actual } of target.matchAll(
-      PATTERN_IN_MD,
-    )) {
+    while ((match = PATTERN_IN_MD.exec(target)) !== null) {
+      const { index, 1: key, 2: pathname, 3: actual } = match;
       // 正規表現にマッチしていればindex、key、pathname、actualは存在している
       assert(index !== undefined && key && pathname && actual !== undefined);
       ++count;
@@ -60,7 +61,9 @@ expect.extend({
             return (cache[key] = text);
           }
           // 指定があればハッシュとのマップを構築
-          for (const [, hash, code] of text.matchAll(PATTERN_IN_TS)) {
+          PATTERN_IN_TS.lastIndex = 0;
+          while ((match = PATTERN_IN_TS.exec(text)) !== null) {
+            const [, hash, code] = match;
             // 正規表現にマッチしたらhashとcodeは常に存在している
             assert(hash && code !== undefined);
             cache[pathname + hash] = code;
@@ -76,14 +79,10 @@ expect.extend({
         const actualIndent = actual.match(/^[ \t]+/)?.[0] ?? '';
         const expectIndented =
           !expectIndent ||
-          [...expect.matchAll(/^(?!$)/gm)].every(({ index }) =>
-            expect.startsWith(expectIndent, index),
-          );
+          !new RegExp(`^(?!$|${expectIndent})`, 'm').test(expect);
         const actualIndented =
           !actualIndent ||
-          [...actual.matchAll(/^(?!$)/gm)].every(({ index }) =>
-            actual.startsWith(actualIndent, index),
-          );
+          !new RegExp(`^(?!$|${actualIndent})`, 'm').test(actual);
         const adjustExpect =
           expectIndent !== actualIndent && expectIndented && actualIndented
             ? expect.replace(
