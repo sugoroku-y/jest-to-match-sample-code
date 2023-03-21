@@ -7,11 +7,10 @@ toMatchSampleCodeは、MDファイルの中に書かれているサンプルコ�
 テストケースの中で以下のように書いておきます。
 
 ```ts:./test/main.test.ts#1
-expect('../README.md' as const).toMatchSampleCode();
+expect('../README.md').toMatchSampleCode();
 ```
 
-※`expect`にはテストケースのソースファイルからの相対パスを指定してください。  
-　型チェックのためにパスには`as const`を付けてください。
+※`expect`にはテストケースのソースファイルからの相対パスを指定してください。
 
 mdファイルには以下のように記述しておきます。
 

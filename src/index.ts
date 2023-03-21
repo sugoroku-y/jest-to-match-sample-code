@@ -24,9 +24,8 @@ expect.extend({
     this: jest.MatcherContext,
     received: string,
   ): jest.CustomMatcherResult {
-    if (this.isNot) {
-      throw new Error(`.not.toMatchSampleCode is unsupported.`);
-    }
+    assert(!this.isNot, `.not.toMatchSampleCode is unsupported.`);
+    assert(this.testPath, `this.testPath is not set`);
 
     let count = 0;
     const messages: string[] = [];
@@ -161,6 +160,9 @@ declare global {
             : ErrorMessage<'パスは./か../から開始し、拡張子は.mdにしてください'>
           : ErrorMessage<'expectにはMarkDownドキュメントのパスを文字列で指定してください'>
       ): R;
+    }
+    interface Expect {
+      <const T>(actual: T): JestMatchers<T>;
     }
   }
 }
