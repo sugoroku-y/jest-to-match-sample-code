@@ -1,6 +1,6 @@
 {
   "name": "jest-to-match-sample-code",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "Matcher to check if the sample code in the document matches the contents of the source file.",
   "scripts": {
     "lint:eslint": "eslint ./src ./test ./sample",
