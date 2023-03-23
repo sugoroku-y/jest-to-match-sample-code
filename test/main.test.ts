@@ -41,9 +41,7 @@ describe('sample code', () => {
   });
   test('sample-code-sample-different.md', () => {
     expect(() => {
-      expect(
-        '../sample/sample-code-sample-different.md',
-      ).toMatchSampleCode();
+      expect('../sample/sample-code-sample-different.md').toMatchSampleCode();
     }).toThrow(regexp`^Difference:\s*${'./sample-code-sample.ts#1'}
 [ \t]*at[ \t]*.*${'sample-code-sample-different.md:3'}
 [\s\S]*
@@ -61,9 +59,7 @@ describe('error', () => {
   });
   test('no sample', () => {
     expect(() => {
-      expect(
-        '../sample/sample-code-sample-no-sample.md',
-      ).toMatchSampleCode();
+      expect('../sample/sample-code-sample-no-sample.md').toMatchSampleCode();
     }).toThrow('Sample code not found in ');
   });
 });

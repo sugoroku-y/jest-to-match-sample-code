@@ -2,14 +2,20 @@
   "name": "jest-to-match-sample-code",
   "version": "1.0.0",
   "description": "Matcher to check if the sample code in the document matches the contents of the source file.",
+  "license": "MIT",
   "scripts": {
-    "lint:eslint": "eslint ./src ./test ./sample",
-    "lint:prettier": "prettier --check ./src ./test ./sample",
+    "lint:eslint": "eslint ./",
+    "lint:prettier": "prettier --check ./",
     "lint": "run-p lint:*",
+    "prebuild": "npm run lint",
     "build": "tsc -b ./src/tsconfig.json",
     "pretest": "npm run build",
     "test": "jest",
     "preversion": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sugoroku-y/jest-to-match-sample-code.git"
   },
   "devDependencies": {
     "@types/jest": "^29.5.0",
